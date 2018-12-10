@@ -1,0 +1,57 @@
+===========================================================================
+====================== Docker Start App with MySql in Environtment ========
+===========================================================================
+
+Now you mast create mysql container:
+
+---------------------------------------------------------------------------
+
+docker run -d --name db \
+
+ -e MYSQL_ROOT_PASSWORD=simple -e MYSQL_DATABASE=firstdb \
+
+ -e MYSQL_USER=user -e MYSQL_PASSWORD=pass123 \
+
+  mysql
+
+---------------------------------------------------------------------------
+
+Use sudo do next command and into the bash container
+
+	docker exec -it db bash
+
+Connect to mysql:
+	mysql -h 127.0.0.1 -P 3306 -uuser -ppass123 firstdb
+
+Create table in container:
+
+CREATE TABLE Persons (PersonID int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255) );
+
+INSERT INTO Persons (PersonID, LastName, FirstName, Address, City) VALUES (1, 'Sureshkumar', 'Deepak', 'Jackal Creek','Johannesburg');
+After thet exit in mysql. Use hot kry CTRL+R folowed by CTRL+Q.
+
+Now create Dockerfile with next line:
+
+---------------------------------------------------------------------------
+
+FROM java:8  
+COPY . /
+WORKDIR /  
+RUN javac DockerConnectMySQL.java
+CMD ["java", "-classpath", "mysql-connector-java-5.1.6.jar:.","DockerConnectMySQL"]
+
+---------------------------------------------------------------------------
+
+Create java app with mysql worker. Add driver with java file and Dockerfile.
+
+Now do command:
+	
+	docker build -t javadbapp .
+
+This command do build javaapp in docker
+
+If you use command: 
+	docker run javadbapp
+You show error.becous you hava two different container.
+And now use this command with linc on old container:
+	docker run --name linkcontainers --link db javadbapp
