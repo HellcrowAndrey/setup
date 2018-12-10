@@ -1,0 +1,57 @@
+===========================================================================
+====================== Docker Start Java Test =============================
+===========================================================================
+
+In current directory need create Dockerfile with next comand for docker:
+
+---------------------------------------------------------------------------
+
+FROM maven:3.5.3-jdk-8-alpine
+COPY ./. /
+
+---------------------------------------------------------------------------
+
+In pom.xml need add dependency junit and build. For example:
+
+---------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>x</groupId>
+    <artifactId>y</artifactId>
+    <version>1.0</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>latest plugin version here</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
+---------------------------------------------------------------------------
+
+Now in current directory enter next command:
+	sudo docker build --no-cache -t my-image:1 -f ./Dockerfile .
+	sudo docker run -it --rm my-image:1 /bin/sh
+	
+After thet enter this command:
+
+	mvn test
+
+This command enter in docker command line.
