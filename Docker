@@ -1,0 +1,45 @@
+===========================================================================
+====================== Install Docker in linux ============================
+===========================================================================
+
+First to fall you need update system: 
+	sudo apt-get update
+	sudo apt-get install apt-transport-https ca-certificates
+	
+Add the new GPG key. Following command downloads the key:
+
+	$ sudo apt-key adv \
+	--keyserver hkp://ha.pool.sks-keyservers.net:80 \
+	--recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+Now you mast run this command: 
+	echo "<REPO>" | sudo tee /etc/apt/sources.list.d/docker.list 
+
+Open the file /etc/apt/sources.list.d/docker.listand paste the following line into the file.
+After thet add line:
+	deb https://apt.dockerproject.org/repo ubuntu-xenial main  
+
+Next step you mast do update system run this command: 
+	sudo atp-get update
+	
+Now you mast add APT plagin;
+	apt-cache policy docker-engine
+
+Install the recommended packages:
+	sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
+
+===========================================================================
+====================== Install the latest Docker version ==================
+===========================================================================
+
+Update your apt packages index.
+	sudo apt-get update
+
+Install docker-engine:
+	sudo apt-get install docker-engine
+
+Start the docker daemon:
+	sudo service docker start 
+Verify that docker is installed correctly by running the hello-world image:
+	sudo docker run hello-world
+

@@ -1,0 +1,43 @@
+===========================================================================
+====================== Install MySql Server ===============================
+===========================================================================
+
+First you mast enter this command:
+	sudo apt-get update
+After that enter this command: 
+	sudo apt-get install mysql-server
+After that you mast enter this command 
+	sudo mysql_secure_installation
+If you have this message: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock'
+Use this command:
+	sudo service mysql start
+After repeat this comman:
+	sudo mysql_secure_installation
+After instalation mysql use this command:
+	sudo mysql
+In mysql use this query:
+	SELECT user,authentication_string,plugin,host FROM mysql.user;
+Checking users tabel row root cplumn plugin if row containing not 'mysql_native_password' use next query:
+	uninstall plugin validate_password;
+	ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+And checking query:
+	SELECT user,authentication_string,plugin,host FROM mysql.user;
+Now column plugin and row root having mysql_native_password
+Use query:
+	exit
+
+If yor want add allow remote access use this command:
+	sudo ufw allow mysql
+If you want start mysql server use this command:
+	systemctl start mysql
+If you want start mysql servet after reboot system you need use this command:
+	systemctl enable mysql
+
+============================================================================
+======================== Install Workbanch =================================
+============================================================================
+
+First you mast enter this command:
+	sudo apt update && sudo apt upgrade
+Second you mast enter this command: 
+	sudo apt install mysql-workbench

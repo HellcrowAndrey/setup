@@ -1,0 +1,30 @@
+===========================================================================
+====================== Docker Java Aplication =============================
+===========================================================================
+Directory is required to organize files. Create a director by using the following command.
+	mkdir  java-docker-app
+Need create java class. For Example:
+
+class Hello{  
+	public static void main(String[] args) {  
+		System.out.println("This is java app \n by using Docker");  
+	}  
+}
+
+Create a Dockerfile with configuration
+
+FROM java:8  
+COPY . /var/www/java  
+WORKDIR /var/www/java  
+RUN javac Hello.java  
+CMD ["java", "Hello"]
+
+In to directory:
+	cd java-docker-app
+
+Use command 
+	sudo -s
+After that use command:
+	docker build -t java-app .
+Now you make run app:
+	docker run java-app

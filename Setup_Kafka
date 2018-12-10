@@ -1,0 +1,37 @@
+========================================================================================================================
+============================== INSTALL KAFKA/ZOOKEEPER==================================================================
+========================================================================================================================
+
+Download kafka in https://kafka.apache.org/downloads. After thet you mast open directory with kafka and open terminale.
+Enter next command: 
+	sudo -s
+After you mast enter next command: 
+	tar -xvzf kafka_2.11-2.1.0.tgz
+When instal complete change directory use this command:
+	cd kafka_2.11-2.1.0/
+After that watch folders/documents in directory use next command: 
+	ls -lrt
+Use next command and catch up zookeeper: 
+	bin/zookeeper-server-start.sh config/zookeeper.properties
+
+========================================================================================================================
+================================ START KAFKA ===========================================================================
+========================================================================================================================
+
+Open new terminale and chenge directory use next command: 
+	cd kafka_2.11-2.1.0/
+After that start kafka server use this command: 
+	bin/kafka-server-start.sh config/server.properties
+
+========================================================================================================================
+================================= BIND CONSUMER AND PRODUCER IN CONSOLE ================================================
+========================================================================================================================
+
+Create topic: 
+	bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Hello-Kafka
+Whatch all topics: 
+	bin/kafka-topics.sh --list --zookeeper localhost:2181
+Create produser:
+	bin/kafka-console-producer.sh --broker-list localhost:9092 --topic Hello-Kafka
+Create consumer:
+	bin/kafka-console-consumer.sh --zookeeper localhost:9092 --topic "Hello-Kafka" --from-beginning

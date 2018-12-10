@@ -1,0 +1,33 @@
+﻿Установка java на ubuntu        
+1. Выполнить         команду $ sudo -s;
+2. Выполнить         команду $         add-apt-repository ppa:webupd8team/java;
+3. Выполнить         команду $         apt-get update -y;
+4. Выполнить         команду $         apt-get install oracle-java8-installer;
+5.  Для         проверки версии java выполнить команду         $ java         -version.
+Установка Maven
+1. Выполнить команду $ cd /opt/
+2. wget http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz;
+3. Выполнить команду tar -xvzf apache-maven-3.3.9-bin.tar.gz;
+4. Выполнить команду mv apache-maven-3.3.9 maven.
+Прописать переменные для Maven
+1. Внутри каталога /etc/profile.d/ создать файл mavenenv.sh;
+2. Выполнить команду $ nano /etc/profile.d/mavenenv.sh;
+3. Добавить строки                                                          export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH} 
+и Сохранить.
+4. Выполнить команду $ chmod +x /etc/profile.d/mavenenv.sh;
+5. Выполнить команду $ source /etc/profile.d/mavenenv.sh;
+6. Для проверки версии выполнить команду $ mvn –version.
+Сборка проекта (модулей) 
+Репозиторий проекта https://bitbucket.org/maxiwidgets/crypto-wallet/src/dev/ 
+Необходимо перейти в директорию “crypto-wallet” и выполнить следующие команды:
+   1. $ mvn clean;        
+   2. $ mvn install.
+Или выполнить команду $ mvn clean install. Maven соберет проект и положить в локальный репозиторий. Если выполнить команду $ mvn clean package, то зборка выполнится и проект будет находится в папке target.
+Размещение проекта (модуля)
+После сборки проекта необходимо из папки target (конкретного модуля), скопировать папку libs и файл <name_jar>.jar и разместить на сервере. 
+Запуск проекта (модуля) на сервере
+Для запуска проекта (модуля) необходимо на сервере перейти в папку с проектом(модулем) и выполнить следующую команду:
+$ java -jar <name_jar>.jar.
+Пример:
+        $ java -jar crypto-wallet-arbiter-1.0-SNAPSHOT.jar
